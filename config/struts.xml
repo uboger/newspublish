@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
+	<package name="default" extends="struts-default" namespace="/">
+		<interceptors>
+			<interceptor name="mylogin" class="com.boy.init.LoginInterceptor"></interceptor>
+		</interceptors>
+	</package>
+	<package name="categorypackage" extends="struts-default"
+		namespace="/">
+	
+		<action name="category" class="com.boy.actions.CategoryAction">
+		
+			<result name="success">/main.files/categorylist.jsp</result>
+			<result name="insert">/main.files/categoryadd.jsp</result>
+			<result name="redirect" type="redirectAction">
+				<param name="actionName">category</param>
+				<param name="namespace">/</param>
+				<param name="category.topid">1</param>
+			</result>
+			<result name="updateInput">/main.files/categoryinput.jsp</result>
+			<result name="update" type="redirectAction">
+				<param name="actionName">category</param>
+				<param name="namespace">/</param>
+				<param name="category.topid">1</param>
+			</result>
+			<result name="delete" type="redirectAction">
+				<param name="actionName">category</param>
+				<param name="namespace">/</param>
+				<param name="category.topid">1</param>
+			</result>
+			
+		</action>
+	</package>
+	<package name="newspackage" extends="struts-default" namespace="/">
+		<action name="news" class="com.boy.actions.NewsAction">
+			<result name="main">/main.files/newslist.jsp</result>
+			<result name="infor">/main.files/newsinfor.jsp</result>
+			<result name="input">/main.files/newspub.jsp</result>
+			<result name="edit">/main.files/newsedit.jsp</result>
+			<result name="save" type="redirectAction">
+				<param name="actionName">news</param>
+				<param name="namespace">/</param>
+				<param name="topid">1</param>
+			</result>
+			<result name="update" type="redirectAction">
+				<param name="actionName">news</param>
+				<param name="namespace">/</param>
+				<param name="topid">1</param>
+			</result>
+			<result name="delete" type="redirectAction">
+				<param name="actionName">news</param>
+				<param name="namespace">/</param>
+				<param name="topid">1</param>
+			</result>
+		</action>
+	</package>
+	<package name="managerpackage" extends="default"
+		namespace="/">
+		<action name="manager" class="com.boy.actions.ManagerAction">
+			<interceptor-ref name="mylogin"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="redirect">/main.files/managers.jsp</result>
+			<result name="login">/login.jsp</result>
+			<result name="main" type="redirect">/main.files/managers.jsp</result>
+			<result name="save" type="redirect">/main.files/managers.jsp</result>
+			<result name="update" type="redirect">/main.files/managers.jsp</result>
+			<result name="edit">/main.files/accountEdit.jsp</result>
+		</action>
+	</package>
+</struts>
